@@ -20,17 +20,17 @@ def cmd_start(message):
     bot.reply_to(message,text=
     f"""<i><b><u>El siguiente menu, muestra los comandos disponibles</u></b></i>
     <b><i>/start</i></b> ➡️ Menu de inicio
-    <b><i>/btc</i></b> ➡️ Precio del BTC-Usd.
+    <b><i>/p</i></b> ➡️ Precio del activo (enviame /p espacio el ticker o par).
     """, parse_mode="html")
 
-@bot.message_handler(commands=["btc"]) # manejador del comando p de precio 
+@bot.message_handler(commands=["p"]) # manejador del comando p de precio 
 
 def cmd_ultimopreciobtc(message):
-    # contiene las accione del comando btc
+    # contiene las accione del comando /p
     var_comando = message.text
     respuesta = "200"
     registro(message.chat.id, respuesta, var_comando, message.from_user.username)
-    activo = "BTC-USD"
+    activo = var_comando[3:].upper()
     pa = finanzas.PrecioActual(activo)
     bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message,text=
@@ -83,7 +83,7 @@ def main():
     #Por cada nuevo comando que agrego, se debe agregar el comando, y este rige el orden de los mismos. 
     bot.set_my_commands([
         telebot.types.BotCommand("/start", "Menu Inicio"),
-        telebot.types.BotCommand("/btc", "Dvuelve el precio del Bitcoin y las Ema de 7, 20 hy 30"),
+        telebot.types.BotCommand("/p", "Dvuelve el precio del activo y las Ema de 7, 20 hy 30"),
         #telebot.types.BotCommand("/log", "Envia el archibo registro_ID"),
         ])
     print('Iniciando " Bot"')
