@@ -34,10 +34,13 @@ def cmd_ultimopreciobtc(message):
     pa = finanzas.PrecioActual(activo)
     bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message,text=
-    f"""El {activo}, es: {pa},
-    la EMA de 7 es: {finanzas.Ema7(activo)},
-    la Ema de 20 es: {finanzas.Ema20(activo)},
-    la Ema de 30 es: {finanzas.Ema30(activo)}.
+    f"""El precio de {activo}, es:
+    {pa}.
+    La Ma de 7 es: {finanzas.Ma7(activo)},
+    la Ma de 21 es: {finanzas.Ma21(activo)},
+    la Ma de 30 es: {finanzas.Ma30(activo)},
+    la Ma de 50 es: {finanzas.Ma50(activo)}
+    y la Ma de 100 es: {finanzas.Ma100(activo)}
     """, parse_mode="html")
 
 
