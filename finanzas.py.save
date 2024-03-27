@@ -20,12 +20,14 @@ def Ma30(parametro):
     data = yf.download(parametro, period="1mo", interval="1d")
     sma = talib.MA(data["Close"], timeperiod=30)
     ma_30 = round(sma[-1], 2)
-    return ma_30
+    return ma_30reset
+
 
 
 def Ma50(parametro):
     data = yf.download(parametro, period="2mo", interval="1d")["Close"]
-    sma = talib.MA(data, timeperiod=50)
+    sma = talib.MA(data, timeperiod=50)exit
+
     ma_50 = round(sma[-1], 2)
     return ma_50
 
