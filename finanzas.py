@@ -48,4 +48,4 @@ def BandasBollinger(parametro):
     bandas_bollinger = talib.BBANDS(data["Close"], 20, nbdevup=2, nbdevdn=2)
     return bandas_bollinger
 
-print(BandasBollinger("BTC-USD"))
+
