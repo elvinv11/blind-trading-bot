@@ -43,4 +43,9 @@ def PrecioActual(parametro):
     precio = round(precios.history(period="1d")["Close"].iloc[-1], 2)
     return precio
 
+def BandasBollinger(parametro):
+    data = yf.download(parametro, period="1mo", interval="1d")
+    bandas_bollinger = talib.BBANDS(data["Close"], 20, nbdevup=2, nbdevdn=2)
+    return bandas_bollinger
+
 
