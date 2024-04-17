@@ -90,7 +90,7 @@ def cmd_log(message):
         respuesta = "404"
         registro(message.chat.id, respuesta, var_comando, message.from_user.username)
         bot.send_chat_action(message.chat.id, "typing")
-        bot.send_message(message.chat.id, "COMANDO DISPONIBLESOLO PARA USUARIOS AUTORISADOS")
+        bot.send_message(message.chat.id, "Comando no disponible")
 
 #respondiendo a los mensajes de texto que no son comandos
 
@@ -116,6 +116,7 @@ def main():
     #Por cada nuevo comando que agrego, se debe agregar el comando, y este rige el orden de los mismos. 
     bot.set_my_commands([
         telebot.types.BotCommand("/start", "Menu Inicio"),
+        telebot.types.BotCommand("/p", "Dvuelve el precio del activo y las Ema de 7, 21, 30, 50, 100 y las Bandas de Bollinger"),
         telebot.types.BotCommand("/ayuda", "Muestra ejemplos de las consultas"),
         ])
 
