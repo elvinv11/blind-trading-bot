@@ -16,12 +16,37 @@ def cmd_start(message):
     respuesta = "200"
     registro(message.chat.id, respuesta, var_comando, message.from_user.username)
     bot.send_chat_action(message.chat.id, "typing")
-    bot.send_message(message.chat.id,f" Hola {message.from_user.first_name}, Bienvenido a  Blindtrading Bot ")    
+    bot.send_message(message.chat.id,f" 🇻🇪 Hola {message.from_user.first_name}, Bienvenido a Blind 🧑‍🦯 trading Bot ")    
     bot.reply_to(message,text=
-    f"""<i><b><u>El siguiente menu, muestra los comandos disponibles</u></b></i>
-    <b><i>/start</i></b> ➡️ Menu de inicio
+    f"""<i><b><u> El siguiente menú, muestra los comandos disponibles</u></b></i>
+    <b><i>/start</i></b> ➡️ Menú de inicio
     <b><i>/p</i></b> ➡️ Precio del activo (enviame /p espacio el ticker o par).
+    <b><i> /ayuda </i></b> ➡️ Te muestro con ejemplo como hacer una consulta vpalida.
+    
     """, parse_mode="html")
+
+@bot.message_handler(commands=["ayuda"]) 
+
+def cmd_ayuda(message):
+    # funcion que contiene las acciones del bot cuando convoquen ayuda
+    var_comando = message.text
+    respuesta = "200"
+    registro(message.chat.id, respuesta, var_comando, message.from_user.username)
+    bot.send_chat_action(message.chat.id, "typing")
+    bot.reply_to(message,text=
+    f"""<i><b><u>Bienvenido a la ayuda</u></b></i>
+    🦮 Permiteme guiarte.
+    <i><b><u>Para las criptomonedas sigue este formato</u></b></i>
+    <b><i>/p BTC-USD</i></b> ➡️ Bitcoin contra el dólar 
+    <b><i>/p LTC-USD</i></b> ➡️ Litecoin contra el Dölar
+    <b><i>/p BNB-USD</i></b> ➡️ Binancecoin contra el Dölar
+    <i><b><u>Para las acciones</u></b></i>
+    <b><i>/p TSLA</i></b> ➡️ Para Tsla
+    <b><i>/p AAPL</i></b> ➡️ Para la manzana
+    <i><b><u>Para los mercados de futuro</u></b></i>
+    <b><i>/p GL=F</i></b> ➡️ para el oro
+    <b><i>/p BZ=F</i></b> ➡️ para el petróleo Brent
+""", parse_mode="html")
 
 @bot.message_handler(commands=["p"]) # manejador del comando p de precio 
 
@@ -79,9 +104,8 @@ def bot_mensajes_texto(message):
         bot.send_message(message.chat.id, "Comando no disponible")
     else:
         registro(message.chat.id, "404", message.text, message.from_user.username)
-        bot.send_chat_action(message.chat.id, "upload_photo")
-        #foto = open("prueba.png", "rb")
-        #bot.send_photo(message.chat.id, foto, "Alto Wallpaper perro")
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.send_message(message.chat.id, "Comando no disponible")
 
 def recibir_mensajes():
     # Bucle infinito que comprueba si hay nuevos mensajes en el bot
@@ -92,9 +116,9 @@ def main():
     #Por cada nuevo comando que agrego, se debe agregar el comando, y este rige el orden de los mismos. 
     bot.set_my_commands([
         telebot.types.BotCommand("/start", "Menu Inicio"),
-        telebot.types.BotCommand("/p", "Dvuelve el precio del activo y las Ema de 7, 20 hy 30"),
-        #telebot.types.BotCommand("/log", "Envia el archibo registro_ID"),
+        telebot.types.BotCommand("/ayuda", "Muestra ejemplos de las consultas"),
         ])
+
     print('Iniciando " Bot"')
     hilo_bot = threading.Thread(name="hilo_bot", target=recibir_mensajes)
     hilo_bot.start()
