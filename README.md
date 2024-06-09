@@ -2,22 +2,22 @@
 encoding: utf-8
 ---
 
-#Bling trading bot
+# Bling trading bot
 
 🇻🇪 Un Bot que nace para que las personas con discapacidad visual (Ciegas) 🧑‍🦯 puedan tener acceso al precio del mercado y algunos indicadores. facilitándole la toma de decisión al invertir.
 
-##¿Dónde lo consigo?
+## ¿Dónde lo consigo?
 
 Si eres una persona que estás interesada en seguir el mercado y usar esta herramienta nos puedes conseguir en Telegram en el siguiente enlace:
 https://t.me/BlindTrading_bot
 
-##Desarrolladores
+## Desarrolladores
 
 Si eres un programador y quieres clonar este repositorio lo puedes hacer, no olvides mejorarlo y sitar de donde salió la idea original.
 
 Te dejo como instalar y hacer correr este pequeño proyecto.
 
-##Instalación
+## Instalación
 
 1.	Al clonar el repositorio encontraras un archivo llamado requirements.txt, allí están todas las librerías y dependencias del proyecto así que solo ejecuta en tu terminal el siguiente comando:
 
@@ -54,7 +54,7 @@ Sudo make install
 
 Pip install ta-lib
 
-###despliegue
+## despliegue
 
 Una vez preparado el entorno, configure su token en el archivo config.py
 Y ejecute bot.py
