@@ -32,7 +32,7 @@ def cmd_ultimopreciobtc(message):
     registro(message.chat.id, respuesta, var_comando, message.from_user.username)
     activo = var_comando[3:].upper()
     pa = finanzas.PrecioActual(activo)
-    bollinger = finanzas.BandasBollinger(activo)    
+    superior, media, inferior = finanzas.BandasBollinger(activo)  
     bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message,text=
     f"""El precio de {activo}, es:
@@ -43,10 +43,10 @@ def cmd_ultimopreciobtc(message):
     la Ma de 50 es: {finanzas.Ma50(activo)}
     y la Ma de 100 es: {finanzas.Ma100(activo)}
     <i>Las Bandas de Bollinger</i>
-    Superior: {round(bollinger[0][-1])}
-    Media: {round(bollinger[1][-1])}
-    Inferior: {round(bollinger[2][-1])}
-    los datos suministrados son en temporalidad de un dia
+    Superior: {round(superior.iloc[-1], 2)}
+    Media: {round(media.iloc[-1], 2)}
+    Inferior: {round(inferior.iloc[-1], 2)}
+    ¡Los datos suministrados son en temporalidad de un día!
     """, parse_mode="html")
 
 
