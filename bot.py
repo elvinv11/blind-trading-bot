@@ -40,12 +40,13 @@ def cmd_ultimopreciobtc(message):
     La Ma de 7 es: {finanzas.Ma7(activo)},
     la Ma de 21 es: {finanzas.Ma21(activo)},
     la Ma de 30 es: {finanzas.Ma30(activo)},
-    la Ma de 50 es: {finanzas.Ma50(activo)}
-    y la Ma de 100 es: {finanzas.Ma100(activo)}
+    la Ma de 50 es: {finanzas.Ma50(activo)},
+    la Ma de 100 es: {finanzas.Ma100(activo)}
+    y la Ema de 200 es: {finanzas.Ema200(activo)}
     <i>Las Bandas de Bollinger</i>
     Superior: {round(superior.iloc[-1], 2)}
     Media: {round(media.iloc[-1], 2)}
-    Inferior: {round(inferior.iloc[-1], 2)}
+    Inferior: {round(inferior.iloc[-1], 2)}.
     ¡Los datos suministrados son en temporalidad de un día!
     """, parse_mode="html")
 

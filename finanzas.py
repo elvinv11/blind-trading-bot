@@ -36,7 +36,11 @@ def Ma100(parametro):
     ma_100 = round(sma.iloc[-1], 2)
     return ma_100
 
-
+def Ema200(parametro):
+    data = yf.download(parametro, period="10mo", interval="1d")
+    sma = talib.EMA(data["Close"], timeperiod=200)
+    ema_200 = round(sma.iloc[-1], 2)
+    return ema_200
 
 def PrecioActual(parametro):
     precios = yf.Ticker(parametro)
