@@ -53,26 +53,52 @@ def cmd_ayuda(message):
 def cmd_ultimopreciobtc(message):
     # contiene las accione del comando /p
     var_comando = message.text
+    var_comando = var_comando.split()
     respuesta = "200"
     registro(message.chat.id, respuesta, var_comando, message.from_user.username)
-    activo = var_comando[3:].upper()
-    pa = finanzas.PrecioActual(activo)
-    superior, media, inferior = finanzas.BandasBollinger(activo)  
+    activo = var_comando[1].upper()
+    temporalidad = var_comando[2].lower() if len(var_comando) > 2 else "1d"
+    match temporalidad:
+        case "5":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 5 minutos!"
+        case "15m":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 15 minutos!"
+        case "1h":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 1 hora!"
+        case "1d":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad diaria!"
+        case "1wk":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad  semanal!"
+        case "1mo":
+            mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad mensual!"
+        case _:
+            bot.reply_to(message, text="""
+                Temporalidad no válida. Las temporalidades soportadas son:
+                * 5m: 5 minutos
+                * 15m: 15 minutos
+                * 1h: 1 hora
+                * 1d: diaria
+                * 1wk: semanal
+                * 1mo: mensual
+                """)
+            return
+    pa = finanzas.PrecioActual(activo, temporalidad)
+    superior, media, inferior = finanzas.BandasBollinger(activo, temporalidad)  
     bot.send_chat_action(message.chat.id, "typing")
     bot.reply_to(message,text=
     f"""El precio de {activo}, es:
     {pa}.
-    La Ma de 7 es: {finanzas.Ma7(activo)},
-    la Ma de 21 es: {finanzas.Ma21(activo)},
-    la Ma de 30 es: {finanzas.Ma30(activo)},
-    la Ma de 50 es: {finanzas.Ma50(activo)},
-    la Ma de 100 es: {finanzas.Ma100(activo)}
-    y la Ema de 200 es: {finanzas.Ema200(activo)}
+    La Ma de 7 es: {finanzas.Ma7(activo, temporalidad)},
+    la Ma de 21 es: {finanzas.Ma21(activo, temporalidad)},
+    la Ma de 30 es: {finanzas.Ma30(activo, temporalidad)},
+    la Ma de 50 es: {finanzas.Ma50(activo, temporalidad)},
+    la Ma de 100 es: {finanzas.Ma100(activo, temporalidad)}
+    y la Ema de 200 es: {finanzas.Ema200(activo, temporalidad)}
     <i>Las Bandas de Bollinger</i>
     Superior: {round(superior.iloc[-1], 2)}
     Media: {round(media.iloc[-1], 2)}
     Inferior: {round(inferior.iloc[-1], 2)}.
-    ¡Los datos suministrados son en temporalidad de un día!
+    {mensaje_temporalidad}
     """, parse_mode="html")
 
 
