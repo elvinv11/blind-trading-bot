@@ -95,9 +95,9 @@ def cmd_ultimopreciobtc(message):
     la Ma de 100 es: {finanzas.Ma100(activo, temporalidad)}
     y la Ema de 200 es: {finanzas.Ema200(activo, temporalidad)}
     <i>Las Bandas de Bollinger</i>
-    Superior: {round(superior.iloc[-1], 2)}
-    Media: {round(media.iloc[-1], 2)}
-    Inferior: {round(inferior.iloc[-1], 2)}.
+    Superior: {round(superior[-1], 2)}
+    Media: {round(media[-1], 2)}
+    Inferior: {round(inferior[-1], 2)}.
     {mensaje_temporalidad}
     """, parse_mode="html")
 
