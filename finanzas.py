@@ -119,10 +119,10 @@ def PrecioActual(parametro, intervalo="1d"):
         precio = round(precios.history(period=intervalo)["Close"].values[-1], 2)
         return precio
     except Exception as e:
-        print(f"Error al obtener el precio actual de {ticker}: {e}")
+        print(f"Error al obtener el precio actual de ticker: {e}")
         return None
 
-print("el precio actual es =", PrecioActual("BTC-USD"))
+# print("el precio actual es =", PrecioActual("GC=F"))
 
 def BandasBollinger(parametro, intervalo="1d"):
     """
