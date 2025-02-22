@@ -116,13 +116,13 @@ def PrecioActual(parametro, intervalo="1d"):
     """ Octiene el precio actual de un activo financiero y lo retorna"""
     try:
         precios = yf.Ticker(parametro)
-        precio = round(precios.history(period=intervalo)["Close"].iloc[-1], 2)
+        precio = round(precios.history(period=intervalo)["Close"].values[-1], 2)
         return precio
     except Exception as e:
         print(f"Error al obtener el precio actual de {ticker}: {e}")
         return None
 
-# print("el precio actual es =", PrecioActual("BTC-USD"))
+print("el precio actual es =", PrecioActual("BTC-USD"))
 
 def BandasBollinger(parametro, intervalo="1d"):
     """
