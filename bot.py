@@ -57,14 +57,11 @@ def cmd_ultimopreciobtc(message):
     # contiene las accione del comando /p
     var_comando = message.text
     var_comando = var_comando.split()
-    print(f"Comando: {var_comando}")
     respuesta = "200"
     registro(message.chat.id, respuesta,
              var_comando, message.from_user.username)
     activo = var_comando[1].upper()
-    # print(f"Activo: {activo}")
     temporalidad = var_comando[2].lower() if len(var_comando) > 2 else "1d"
-    # print(f"Temporalidad: {temporalidad}")
     match temporalidad:
         case "5":
             mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 5 minutos!"
