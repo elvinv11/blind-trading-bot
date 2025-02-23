@@ -2,3 +2,6 @@ mi_conf.py
 __pycache__/
 *.txt
 !requirements.txt
+.env/
+.python-version
+requirements_ronny.txt
