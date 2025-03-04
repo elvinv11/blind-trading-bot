@@ -63,7 +63,7 @@ def cmd_ultimopreciobtc(message):
     activo = var_comando[1].upper()
     temporalidad = var_comando[2].lower() if len(var_comando) > 2 else "1d"
     match temporalidad:
-        case "5":
+        case "5m":
             mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 5 minutos!"
         case "15m":
             mensaje_temporalidad = F"¡Los datos suministrados son en temporalidad 15 minutos!"
@@ -87,23 +87,25 @@ def cmd_ultimopreciobtc(message):
                 """)
             return
     pa = finanzas.PrecioActual(activo, temporalidad)
-    superior, media, inferior = finanzas.BandasBollinger(activo, temporalidad)
-    bot.send_chat_action(message.chat.id, "typing")
-    bot.reply_to(message, text=f"""El precio de {activo}, es:
-    {pa}.
-    La Ma de 7 es: {finanzas.Ma7(activo, temporalidad)},
-    la Ma de 21 es: {finanzas.Ma21(activo, temporalidad)},
-    la Ma de 30 es: {finanzas.Ma30(activo, temporalidad)},
-    la Ma de 50 es: {finanzas.Ma50(activo, temporalidad)},
-    la Ma de 100 es: {finanzas.Ma100(activo, temporalidad)}
-    y la Ema de 200 es: {finanzas.Ema200(activo, temporalidad)}
-    <i>Las Bandas de Bollinger</i>
-    Superior: {round(superior[-1], 2)}
-    Media: {round(media[-1], 2)}
-    Inferior: {round(inferior[-1], 2)}.
-    {mensaje_temporalidad}
-    """, parse_mode="html")
-
+    if isinstance(pa, (int, float)):
+        superior, media, inferior = finanzas.BandasBollinger(activo, temporalidad)
+        bot.send_chat_action(message.chat.id, "typing")
+        bot.reply_to(message, text=f"""El precio de {activo}, es:
+        {pa}.
+        La Ma de 7 es: {finanzas.Ma7(activo, temporalidad)},
+        la Ma de 21 es: {finanzas.Ma21(activo, temporalidad)},
+        la Ma de 30 es: {finanzas.Ma30(activo, temporalidad)},
+        la Ma de 50 es: {finanzas.Ma50(activo, temporalidad)},
+        la Ma de 100 es: {finanzas.Ma100(activo, temporalidad)}
+        y la Ema de 200 es: {finanzas.Ema200(activo, temporalidad)}
+        <i>Las Bandas de Bollinger</i>
+        Superior: {round(superior[-1], 2)}
+        Media: {round(media[-1], 2)}
+        Inferior: {round(inferior[-1], 2)}.
+        {mensaje_temporalidad}
+        """, parse_mode="html")
+    else: # Si pa no es un número, asume que es un mensaje de error
+        bot.reply_to(message, text=f"Error al obtener el precio de {activo}, por favor verifica el activo y vuelve a intentarlo.")
 
 @bot.message_handler(commands=["log"])  # manejador del comando log
 def cmd_log(message):

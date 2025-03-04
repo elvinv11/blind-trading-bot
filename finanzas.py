@@ -9,8 +9,15 @@ def Ma7(parametro, intervalo="1d"):
     intervalo (str) el intervalo de tiempo 1m, 2m, 5m, 15m, 30m, 
     60m, 90m, 1h,
     """
+    match intervalo:
+        case "1wk":
+            periodo = "3mo"
+        case "1mo":
+            periodo = "1y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="1mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.MA(close, timeperiod=7)
@@ -20,15 +27,22 @@ def Ma7(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("la Ma de 7 es =", Ma7("BTC-USD"))
+# print("la Ma de 7 es =", Ma7("BTC-USD", "5m"))
 
 def Ma21(parametro, intervalo="1d"):
     """  Calcula la media movil de 21 días del activo 
     Args: 
     parametro (str): tiker (símbolo del activo financiero).
     """
+    match intervalo:
+        case "1wk":
+            periodo = "6mo"
+        case "1mo":
+            periodo = "2y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="1mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.MA(close, timeperiod=21)
@@ -38,15 +52,22 @@ def Ma21(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("la Ma 21 es =", Ma21("BTC-USD"))
+# print("la Ma 21 es =", Ma21("BTC-USD", "5m"))
 
 def Ma30(parametro, intervalo="1d"):
     """  Calcula la media movil de 30 días del activo 
     Args: 
     parametro (str): tiker (símbolo del activo financiero).
     """
+    match intervalo:
+        case "1wk":
+            periodo = "8mo"
+        case "1mo":
+            periodo = "3y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="2mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.MA(close, timeperiod=30)
@@ -56,15 +77,22 @@ def Ma30(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("La de 30 es =", Ma30("BTC-USD"))
+# print("La de 30 es =", Ma30("BTC-USD", "5m"))
 
 def Ma50(parametro, intervalo="1d"):
     """  Calcula la media movil de 50 días del activo 
     Args: 
     parametro (str): tiker (símbolo del activo financiero).
     """
+    match intervalo:
+        case "1wk":
+            periodo = "1y"
+        case "1mo":
+            periodo = "5y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="3mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.MA(close, timeperiod=50)
@@ -74,15 +102,22 @@ def Ma50(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("la Ma de 50 es =", Ma50("BTC-USD"))
+# print("la Ma de 50 es =", Ma50("BTC-USD", "5m"))
 
 def Ma100(parametro, intervalo="1d"):
     """  Calcula la media movil de 100 días del activo 
     Args: 
     parametro (str): tiker (símbolo del activo financiero).
     """
+    match intervalo:
+        case "1wk":
+            periodo = "2y"
+        case "1mo":
+            periodo = "10y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="5mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.MA(close, timeperiod=100)
@@ -92,15 +127,22 @@ def Ma100(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("la Ma de 100 es =", Ma100("BTC-USD"))
+# print("la Ma de 100 es =", Ma100("BTC-USD", "5m"))
 
 def Ema200(parametro, intervalo="1d"):
     """  Calcula la media movil de 200 días del activo 
     Args: 
     parametro (str): tiker (símbolo del activo financiero).
     """
+    match intervalo:
+        case "1wk":
+            periodo = "4y"
+        case "1mo":
+            periodo = "20y"
+        case _:
+            periodo = "1mo"
     try:
-        data = yf.download(parametro, period="10mo", interval=intervalo)
+        data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
         close = close.flatten()
         sma = talib.EMA(close, timeperiod=200)
@@ -110,19 +152,24 @@ def Ema200(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("la ema de 200 es =", Ema200("BTC-USD"))
+# print("la ema de 200 es =", Ema200("BTC-USD", "5m"))
 
 def PrecioActual(parametro, intervalo="1d"):
-    """ Octiene el precio actual de un activo financiero y lo retorna"""
+    """Obtiene el precio actual de un activo financiero y lo retorna"""
     try:
         precios = yf.Ticker(parametro)
-        precio = round(precios.history(period=intervalo)["Close"].values[-1], 2)
+        history = precios.history(period="1d")
+
+        if history.empty:
+            # Captura el mensaje de error específico de Yahoo Finance
+            return f"{parametro}: possibly delisted; no price data found (period=1d) (Yahoo error = 'No data found, symbol may be delisted')"
+
+        precio = round(history["Close"].values[-1], 2)
         return precio
     except Exception as e:
-        print(f"Error al obtener el precio actual de ticker: {e}")
-        return None
+        return f"Error al obtener el precio: {e}"
 
-# print("el precio actual es =", PrecioActual("GC=F"))
+# print("el precio actual es =", PrecioActual("BTC-USD", "5m"))
 
 def BandasBollinger(parametro, intervalo="1d"):
     """
@@ -134,10 +181,17 @@ def BandasBollinger(parametro, intervalo="1d"):
     Returns:
           una lista que contiene las bandas superior, media y inferior.
     """
-    data = yf.download(parametro, period="1mo", interval=intervalo)
+    match intervalo:
+        case "1wk":
+            periodo = "6mo"
+        case "1mo":
+            periodo = "2y"
+        case _:
+            periodo = "1mo"
+    data = yf.download(parametro, period=periodo, interval=intervalo)
     close = data["Close"].values
     close = close.flatten()
     bandas_bollinger = talib.BBANDS(close, 20, nbdevup=2, nbdevdn=2)
     return bandas_bollinger
 
-# print("las bandas de bolinger son =", BandasBollinger("BTC-USD"))
+# print("las bandas de bolinger son =", BandasBollinger("BTC-USD", "1mo"))
