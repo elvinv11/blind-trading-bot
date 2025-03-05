@@ -65,7 +65,7 @@ def Ma30(parametro, intervalo="1d"):
         case "1mo":
             periodo = "3y"
         case _:
-            periodo = "1mo"
+            periodo = "2mo"
     try:
         data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
@@ -77,7 +77,7 @@ def Ma30(parametro, intervalo="1d"):
         print(f"Error al calcular la media móvil: {e}")
         return None
 
-# print("La de 30 es =", Ma30("BTC-USD", "5m"))
+# print("La de 30 es =", Ma30("BTC-USD"))
 
 def Ma50(parametro, intervalo="1d"):
     """  Calcula la media movil de 50 días del activo 
@@ -90,7 +90,7 @@ def Ma50(parametro, intervalo="1d"):
         case "1mo":
             periodo = "5y"
         case _:
-            periodo = "1mo"
+            periodo = "2mo"
     try:
         data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
@@ -115,7 +115,7 @@ def Ma100(parametro, intervalo="1d"):
         case "1mo":
             periodo = "10y"
         case _:
-            periodo = "1mo"
+            periodo = "4mo"
     try:
         data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
@@ -140,7 +140,7 @@ def Ema200(parametro, intervalo="1d"):
         case "1mo":
             periodo = "20y"
         case _:
-            periodo = "1mo"
+            periodo = "7mo"
     try:
         data = yf.download(parametro, period=periodo, interval=intervalo)
         close = data["Close"].values
