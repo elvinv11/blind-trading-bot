@@ -2,6 +2,6 @@ mi_conf.py
 __pycache__/
 *.txt
 !requirements.txt
-.env/
+.venv/
 .python-version
-requirements_ronny.txt
+.bot.pyorca.swp
