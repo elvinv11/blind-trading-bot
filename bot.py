@@ -1,14 +1,19 @@
 #!/usr/bin/python
 
+import os
+# importo el archibo de las variables de entorno donde tengo mi token del bot, y la constante mi_token
+from dotenv import load_dotenv
 import finanzas
 import telebot
 import threading
-# importo el archibo mi_conf.py donde tengo mi token del bot, y la constante mi_token
-from mi_conf import TOKEN, MI_CHAT_ID
 # importo de function_registro.py la funcion registro()
 from function_registro import registro
 
-bot = telebot.TeleBot(TOKEN)  # instancio el bot y le paso el token
+# Variables de entorno
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
+MI_CHAT_ID = os.getenv("MI_CHAT_ID")
+bot = telebot.TeleBot(token=TOKEN)  # instancio el bot y le paso el token
 
 
 @bot.message_handler(commands=["start"])  # manejador del comando start

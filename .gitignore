@@ -3,5 +3,7 @@ __pycache__/
 *.txt
 !requirements.txt
 .venv/
+.vscode/
 .python-version
 .bot.pyorca.swp
+.env
